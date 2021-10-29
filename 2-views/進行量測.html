@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <title></title>
+      <link rel="stylesheet" href="styles/kendo.common.min.css" />
+      <link rel="stylesheet" href="styles/kendo.default.min.css" />
+      <link rel="stylesheet" href="styles/kendo.mobile.all.min.css" />
+
+      <script src="js/jquery.min.js"></script>
+      <script src="js/kendo.all.min.js"></script>    
+  </head>
+  
+  <body>
+       
+    <div data-role="view" data-init="initData"  data-title="資料圖表" style="font-family:'Noto Sans TC';" data-use-native-scrolling="true" data-show="kendoViewReady" >
+
+      <div data-role="content" style="background-color: white;"> 
+
+        <a class="" style="font-size: 18px; color: white; float:left;margin-left:15px; margin-top:20px; background-color:#FF4350; padding:10px;border-radius:8px " onclick="">週</a> 
+        
+        <a class="" style="font-size: 18px; color: white; float:left;margin-left:15px;  margin-top:20px; background-color:lightgray; padding:10px;border-radius:8px " onclick="">月</a>   
+              
+        <a class="" style="font-size: 18px; color: white; float:left;margin-left:15px;  margin-top:20px; background-color:lightgray
+        ; padding:10px;border-radius:8px " onclick="">全部</a> 
+        
+        <div style="height: 60px"></div>
+           
+        <hr>
+  
+        <canvas id="myChart" width="400px" height="200px" style="margin:10px"></canvas>   
+        
+        
+        <a class="" style="font-size: 26px; color:#FF4350; float:left;margin-left:100px; font-weight:bold; background-color:lightgray
+        ; padding:10px;border-radius:8px " onclick=""><</a>    
+        
+        <a class="" style="font-size: 26px; color:#FF4350; float:right;margin-right:100px; font-weight:bold; background-color:lightgray
+        ; padding:10px;border-radius:8px " onclick="">></a>   
+        
+        <script>
+          drawChart(); // 必須在這裡執行，defined in functions.js
+        </script>          
+      </div>     
+    </div>
+    
+    <script>
+      //以下必須 remark 掉，不然會有問題
+      //var app = new kendo.mobile.Application(document.body, { skin: "nova" });
+    </script>
+
+  </body>
+</html>
