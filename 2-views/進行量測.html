@@ -35,14 +35,15 @@
         
         <a class="" style="font-size: 26px; color:#FF4350; float:right;margin-right:100px; font-weight:bold; background-color:lightgray
         ; padding:10px;border-radius:8px " onclick="">></a>   
-        
-        <script>
-          drawChart(); // 必須在這裡執行，defined in functions.js
-        </script>          
+                 
       </div>     
     </div>
     
     <script>
+      function initData(e){
+        drawChart(); // 必須在這裡執行，defined in functions.js
+      }
+      
       //以下必須 remark 掉，不然會有問題
       //var app = new kendo.mobile.Application(document.body, { skin: "nova" });
     </script>
