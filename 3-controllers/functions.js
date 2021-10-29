@@ -593,7 +593,7 @@ function drawChart(){
         labels: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
         datasets: [{
           backgroundColor: [
-            'rgba(255, 99, 132, 0.2)'
+            'rgba(255, 99, 132, 0.9)'
           ],
           label: '體重(公斤)',
           data: [null, null, null, null, 4.28, 4.75, null]
