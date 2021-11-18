@@ -627,7 +627,7 @@ function drawChart(){
           backgroundColor: [
             'rgba(99, 128, 196, 0.9)'
           ],
-          label: 'BMI',
+          label: 'BMI          ',
           data: [null, null, null, null, 14.81, 16.22, null]
         }]
       }
