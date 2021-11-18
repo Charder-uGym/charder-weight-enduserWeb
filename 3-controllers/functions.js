@@ -334,7 +334,9 @@ async function checkUserIdExist() {
       console.log("時間Str", 時間Str);      
       var 卡片 = {
         "量測記錄時間": 時間Str, //所有量測數據[i].量測時間,              
-        "綜合評價":    量測記錄.weight,
+        "體重":    量測記錄.weight,
+        "身高":    量測記錄.height,
+        "BMI":    量測記錄.BMI,
         "量測紀錄圖片": "",              
         "url": "",
         "section": "A"             
@@ -584,10 +586,10 @@ function 我知道了(){
 
 
 var ctx;
-var myChart;
+var myChartWeight;
 function drawChart(){
-    ctx = $('#myChart');
-    myChart = new Chart(ctx, {
+    ctxW = $('#myChartWeight');
+    myChartWeight = new Chart(ctxW, {
       type: 'bar',
       data: {
         labels: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
@@ -599,12 +601,43 @@ function drawChart(){
           data: [null, null, null, null, 4.28, 4.75, null]
         }]
       }
-    });        
+    });      
+  
+    ctxH = $('#myChartHeight');
+    myChartWeight = new Chart(ctxH, {
+      type: 'bar',
+      data: {
+        labels: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+        datasets: [{
+          backgroundColor: [
+            'rgba(99, 128, 64, 0.9)'
+          ],
+          label: '身高(公分)',
+          data: [null, null, null, null, 53.5, 54.1, null]
+        }]
+      }
+    });    
+  
+    ctxB = $('#myChartBMI');
+    myChartWeight = new Chart(ctxB, {
+      type: 'bar',
+      data: {
+        labels: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+        datasets: [{
+          backgroundColor: [
+            'rgba(99, 128, 196, 0.9)'
+          ],
+          label: 'BMI',
+          data: [null, null, null, null, 14.81, 16.22, null]
+        }]
+      }
+    });
+  
 }
 
 // update chart
-// mychart.data.datasets[0].data ==> [null, null, null, null, 4.28, 4.75, null]
-// modify data, use myChart.update()
+// myChartWeight.data.datasets[0].data ==> [null, null, null, null, 4.28, 4.75, null]
+// modify data, use myChartWeight.update()
 
 function toISOStringWithTimeZone() {
     var nowDate = new Date();        

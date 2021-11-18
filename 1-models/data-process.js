@@ -58,7 +58,9 @@ async function 取得量測記錄(data) {
       console.log("時間Str", 時間Str);      
       var 卡片 = {
         "量測記錄時間": 時間Str, //所有量測數據[i].量測時間,              
-        "綜合評價":    量測記錄.weight,
+        "體重":    量測記錄.weight,
+        "身高":    量測記錄.height,
+        "BMI":    量測記錄.BMI,        
         "量測紀錄圖片": "",              
         "url": "",
         "section": "A"             
