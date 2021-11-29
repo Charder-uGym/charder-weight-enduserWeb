@@ -273,7 +273,8 @@ async function checkUserIdExist() {
     console.log(userProfile);
 
     $("#formUserID").val(userProfile.查詢編號);
-    $("#formUserBirth").val(userProfile.查詢生日);
+    $("#formUserName").text(userProfile.查詢姓名);
+    $("#formUserBirth").text(userProfile.查詢生日);
     
 //    $("#formUserName").val(userProfile[0]);
 //    $("#formUserGender").val(userProfile[1]);     
