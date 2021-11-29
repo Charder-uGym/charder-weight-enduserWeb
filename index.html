@@ -206,7 +206,7 @@
 <!--
         <li>
           <label class="km-label-above">ID (必填)
-              <input id="formUserName" type="text" class="NotoSansFont"/>
+              <input id="formMemberName" type="text" class="NotoSansFont"/>
           </label>
         </li>
 -->
@@ -223,7 +223,7 @@
 <!--
         <li>
           <label class="km-label-above">生日年月日(必填，格式 YYYY-MM-DD)
-            <input id="formUserBirth" class="NotoSansFont" type="text"/> 
+            <input id="formMemberBirth" class="NotoSansFont" type="text"/> 
           </label> 
         </li>      
 -->
@@ -245,21 +245,27 @@
         </li> 
 -->
         <li>
-          <label class="km-label-above">會員編號(必填，量測報告查詢，格式 IDNNNNNNNN)
-            <input id="formUserID" class="NotoSansFont" type="text" placeholder="例如: ID12345678"/>
+          <label class="km-label-above">服務單位(必填)
+            <input id="formMemberUnit" class="NotoSansFont" type="text"/>
           </label> 
-          <button class="km-primary"style="height:30px; font-size:16px; float:right; color:white; background-color:green ; border:none; border-radius:5px">查詢</button>
+        </li>
+               
+        <li>
+          <label class="km-label-above">會員編號(必填，量測報告查詢，格式 IDNNNNNNNN)
+            <input id="formMemberID" class="NotoSansFont" type="text" placeholder="例如: ID12345678"/>
+          </label> 
         </li>
         
         <li>
-          <label class="km-label-above">會員姓名</label> 
-          <span id="formUserName" class="NotoSansFont"></span> 
+          <label class="km-label-above">會員姓名(必填)
+            <input id="formMemberName" class="NotoSansFont" type="text"/>
+          </label>           
         </li>
                 
         <li>
-          <label class="km-label-above">生日年月日</label> 
-          <span id="formUserBirth" class="NotoSansFont" ></span> 
-          
+          <label class="km-label-above">生日年月日(必填，格式 YYYY-MM-DD)
+            <input id="formMemberBirth" class="NotoSansFont" type="text"/>   
+          </label>                 
         </li>          
       </ul>
 

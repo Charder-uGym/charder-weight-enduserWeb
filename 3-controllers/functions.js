@@ -214,10 +214,10 @@ function getDataByAPIs(checkDataReady) {
   // =====================================================================================      
 }
 
-function 更新資料() {
+async function 更新資料() {
   console.log("更新資料");
  
-  註冊會員();
+  var isOK = await 註冊會員();
   console.log(已經是會員);
 
 //  if (!已經是會員) {
@@ -226,7 +226,7 @@ function 更新資料() {
 //    取得量測記錄(measurementSource);      
 //  }
   
-  app.navigate('#:back');
+  if (isOK) app.navigate('#:back');
 }
 
 // 非同步+await
@@ -259,8 +259,8 @@ async function checkUserIdExist() {
   
   if (res.substring(0,6) == "API:14") {
     alert("為查詢資料，請填寫必要資料");
-//    $("#formUserName").val(decodeURI(displayName[1]));
-//    $("#formUserName").attr("disabled", "disabled"); 
+//    $("#formMemberName").val(decodeURI(displayName[1]));
+//    $("#formMemberName").attr("disabled", "disabled"); 
 //    $("#LINE頭像").attr("src", pictureUrl[1]);
     已經是會員 = false;
     app.navigate('#forms');
@@ -272,15 +272,16 @@ async function checkUserIdExist() {
     userProfile = JSON.parse(res);
     console.log(userProfile);
 
-    $("#formUserID").val(userProfile.查詢編號);
-    $("#formUserName").text(userProfile.查詢姓名);
-    $("#formUserBirth").text(userProfile.查詢生日);
+    $("#formMemberUnit").val(userProfile.服務單位);
+    $("#formMemberID").val(userProfile.查詢編號);
+    $("#formMemberName").val(userProfile.查詢姓名);
+    $("#formMemberBirth").val(userProfile.查詢生日);
     
-//    $("#formUserName").val(userProfile[0]);
+//    $("#formMemberName").val(userProfile[0]);
 //    $("#formUserGender").val(userProfile[1]);     
-//    $("#formUserBirth").val(userProfile[2]);
+//    $("#formMemberBirth").val(userProfile[2]);
 //    $("#formUserPhone").val(userProfile[3]);
-//    $("#formUserID").val(userProfile[4]);
+//    $("#formMemberID").val(userProfile[4]);
 //    $("#formUserAddr").val(userProfile[5]);
 //    $("#formUserHeight").val(userProfile[8]);
 //    $("#formUserWeight").val(userProfile[9]);    
@@ -315,7 +316,7 @@ async function checkUserIdExist() {
 //    機器序號 = machineStatus[0];
 //    console.log(機器序號);    
     
-    paramToSend = "?API=32" + "&UserId=" + $("#formUserID").val(); //userId[1];
+    paramToSend = "?API=32" + "&UserId=" + $("#formMemberID").val(); //userId[1];
     var res = await callAPI(paramToSend, '讀取量測記錄');
     console.log(typeof res, res);
     
@@ -383,67 +384,70 @@ async function checkUserIdExist() {
 async function 註冊會員() {
   console.log("註冊會員");
   // 檢查資料格式     
-  if (   $("#formUserName").val()        == ""
-      || $("#formUserGender").val()       == ""
-      || $("#formUserBirth").val()        == ""
-      || $("#formUserPhone").val()        == ""
-      || $("#formUserID").val()           == ""
-      || $("#formUserHeight").val()       == ""
-      || $("#formUserWeight").val()       == ""       
-      || $("#formEmergencyContact").val() == ""
-      || $("#formEmergencyPhone").val()   == ""          
+  if (   $("#formMemberName").val()        == ""
+      || $("#formMemberBirth").val()        == ""
+      || $("#formMemberID").val()           == ""      
+      //|| $("#formUserGender").val()       == ""
+      //|| $("#formUserPhone").val()        == ""
+      //|| $("#formUserHeight").val()       == ""
+      //|| $("#formUserWeight").val()       == ""       
+      //|| $("#formEmergencyContact").val() == ""
+      //|| $("#formEmergencyPhone").val()   == ""          
      ) {
     alert("請填寫必填項目!");
     console.log("缺必填項目")
     return false;
   }
   
-  // Brithday 格式 YYYY-MM
-  var regex_birthday = /^[1-2][0-9]{3}-(0[1-9]|1[012])$/;
-  if (!regex_birthday.test($("#formUserBirth").val())){
+  // Brithday 格式 YYYY-MM-DD
+  var regex_birthday = /^[1-2][0-9]{3}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/;
+  if (!regex_birthday.test($("#formMemberBirth").val())){
     alert("出生年月格式錯誤!");
     console.log("birthday format is wrong");
     return false;
   }
   console.log("birthday format is correct");
   
+  
   // Brithday 限制前ㄧ年 到 前 100 年  
-  var dateNow = new Date();
-  var thisYear = parseInt( dateNow.toLocaleDateString().substr(0,4));
-  var birthYear = parseInt($("#formUserBirth").val().substr(0,4));
-  console.log(thisYear, birthYear);
-  if ( (birthYear> (thisYear-1)) || (birthYear < (thisYear-100)) ){
-    alert("出生年必須在 "+ (thisYear-100).toString()+ "~"+ (thisYear-1).toString()+ " 之間!");
-    console.log("birthday year is out of range");
-    return false;
-  }
-  console.log("birthday year is in range");
+//  var dateNow = new Date();
+//  var thisYear = parseInt( dateNow.toLocaleDateString().substr(0,4));
+//  var birthYear = parseInt($("#formMemberBirth").val().substr(0,4));
+//  console.log(thisYear, birthYear);
+//  if ( (birthYear>= (thisYear)) || (birthYear < (thisYear-100)) ){
+//    alert("出生年必須在 "+ (thisYear-100).toString()+ "~"+ (thisYear).toString()+ " 之間!");
+//    console.log("birthday year is out of range");
+//    return false;
+//  }
+//  console.log("birthday year is in range");
   
   // 身高限制 50 cm ~ 300cm
 //  var regex_height = /^[1-9][0-9]{1,2}$/g;
-  var regex_height = /^[1-9][0-9]{1,2}(\.\d{0,2})?$/g;
-  if (!regex_height.test($("#formUserHeight").val())){
-    alert("身高格式錯誤!");
-    console.log("Height format is wrong");
-    return false;    
-  }
-
-  var userHeight = parseFloat($("#formUserHeight").val());
-  console.log(userHeight);
-  if ( userHeight<50 || userHeight > 300) {
-    alert("身高必須在 50cm ~ 300cm 之間!");
-    console.log("Height is out of range");
-    return false;    
-  }
+//  var regex_height = /^[1-9][0-9]{1,2}(\.\d{0,2})?$/g;
+//  if (!regex_height.test($("#formUserHeight").val())){
+//    alert("身高格式錯誤!");
+//    console.log("Height format is wrong");
+//    return false;    
+//  }
+//
+//  var userHeight = parseFloat($("#formUserHeight").val());
+//  console.log(userHeight);
+//  if ( userHeight<50 || userHeight > 300) {
+//    alert("身高必須在 50cm ~ 300cm 之間!");
+//    console.log("Height is out of range");
+//    return false;    
+//  }
   
-  console.log("進行更新會員資料")
+  console.log("進行更新會員資料");
+  return true; //以下完成後將 ture 已到最後
+  
   var APIToCall = (已經是會員)?  "?API=02":"?API=01"
   paramToSend = APIToCall +
-    "&Name="             + $("#formUserName").val() +
+    "&Name="             + $("#formMemberName").val() +
     "&Gender="           + $("#formUserGender").val() +     
-    "&Birth="            + $("#formUserBirth").val() +
+    "&Birth="            + $("#formMemberBirth").val() +
     "&Phone="            + $("#formUserPhone").val() +
-    "&ID="               + $("#formUserID").val() +
+    "&ID="               + $("#formMemberID").val() +
     "&Address="          + $("#formUserAddr").val() +
     "&UserId="           + userId[1] +        
     "&PicURL="           + pictureUrl[1] +       
@@ -456,45 +460,19 @@ async function 註冊會員() {
 
   var profile = "請確認會員資料:\n" +
     "    預設常用健身房: " + $("#預設常用健身房").val() + "\n" +      
-    "    會員姓名: " + $("#formUserName").val() + "\n" +
+    "    會員姓名: " + $("#formMemberName").val() + "\n" +
     "    會員姓別: " + $("#formUserGender").val() + "\n" +
-    "    會員生日: " + $("#formUserBirth").val() + "\n" +  
+    "    會員生日: " + $("#formMemberBirth").val() + "\n" +  
     "    區域: "    + $("#formUserEthnicity").val() + "\n" +        
     "    會員身高: " + $("#formUserHeight").val() + " cm" +"\n" +          
 //    "    會員體重: " + $("#formUserWeight").val() + " kg" +"\n" +            
     "    會員電話: " + $("#formUserPhone").val() + "\n";
-//    "    身分證號: " + $("#formUserID").val() + "\n" +
+//    "    身分證號: " + $("#formMemberID").val() + "\n" +
 //    "    會員地址: " + $("#formUserAddr").val() + "\n" +
 //    "    緊急聯絡人:" + $("#formEmergencyContact").val() + "\n" +       
 //    "    緊急聯絡電話:" + $("#formEmergencyPhone").val();        
 
   if (confirm(profile)) {
-// POST to write FTP
-//    userName = decodeURI(displayName[1]);
-//    var requestFTP = new XMLHttpRequest();   // new HttpRequest instance 
-//    var theUrl1 = "https://ugym3dbiking.azurewebsites.net/api/Questionnaire?Code=debug123"
-//    var theUrl2 = ""; // 預留給 GET 測試
-//    requestFTP.open("POST", theUrl1);
-//    requestFTP.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-//
-//    // need to handle the response better
-//    requestFTP.onload = function() { console.log("aaa", this.response);}  
-//
-//    var ftpToWrite = {
-//      "userId":    userId[1],
-//      "nickName":  userName,
-//      "gender":    ($("#formUserGender").val()=="女")? 0:1,
-//      "birthYear": $("#formUserBirth").val().substring(0,4), //必須是數字。不然寫入會有錯誤
-//      "weight":    $("#formUserWeight").val(),
-//      "height":    $("#formUserHeight").val(),
-//      "score1":    1,
-//      "score2":    1,
-//      "score3":    1          
-//    }
-//    console.log(JSON.stringify(ftpToWrite));
-//    requestFTP.send(JSON.stringify(ftpToWrite));
-// end write FTP
-
     // 寫入會員到 Direbase     
     var res = await callAPI(paramToSend, '寫入資料');
 

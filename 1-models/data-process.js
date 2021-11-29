@@ -38,7 +38,7 @@ async function 取得量測記錄(data) {
     var dataTemp=[];
     data.success(dataTemp);
   } else {
-    paramToSend = "?API=32" + "&UserId=" + $("#formUserID").val(); //userId[1];
+    paramToSend = "?API=32" + "&UserId=" + $("#formMemberID").val(); //userId[1];
     var res = await callAPI(paramToSend, '讀取量測記錄');
     console.log(typeof res, res);
     
