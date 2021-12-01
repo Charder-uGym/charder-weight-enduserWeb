@@ -214,20 +214,20 @@ function getDataByAPIs(checkDataReady) {
   // =====================================================================================      
 }
 
-async function 更新資料() {
-  console.log("更新資料");
- 
-  var isOK = await 註冊會員();
-  console.log(已經是會員);
-
-//  if (!已經是會員) {
-//    loadCourses = true;
-//    getCourseData(navDataSource);
-//    取得量測記錄(measurementSource);      
-//  }
-  
-  if (isOK) app.navigate('#:back');
-}
+//async function 更新資料() {
+//  console.log("更新資料");
+// 
+//  var isOK = await 註冊會員();
+//  console.log(已經是會員);
+//
+////  if (!已經是會員) {
+////    loadCourses = true;
+////    getCourseData(navDataSource);
+////    取得量測記錄(measurementSource);      
+////  }
+//  
+//  if (isOK) app.navigate('#:back');
+//}
 
 // 非同步+await
 function callAPI(param, loadingMessage) {
@@ -438,8 +438,6 @@ async function 註冊會員() {
 //    return false;    
 //  }
   
-  console.log("進行更新會員資料");
-  return true; //以下完成後將 ture 已到最後
   
   var APIToCall = (已經是會員)?  "?API=02":"?API=01"
   paramToSend = APIToCall +
@@ -491,6 +489,68 @@ async function 註冊會員() {
 
     } else {
       alert("資料新增失敗，請重試。若一直有問題，請洽管理員")
+      $("#errorMessage").css("display", "block");
+    }
+
+  } else {
+    console.log("Cancel");
+  };
+  
+};
+
+async function 更新資料() {
+  console.log("更新資料");
+  // 檢查資料格式     
+  if (   $("#formMemberUnit").val()         == ""
+      || $("#formMemberName").val()         == ""
+      || $("#formMemberBirth").val()        == ""
+      || $("#formMemberID").val()           == ""            
+     ) {
+    alert("請填寫必填項目!");
+    console.log("缺必填項目")
+    return false;
+  }
+  
+  // Brithday 格式 YYYY-MM-DD
+  var regex_birthday = /^[1-2][0-9]{3}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/;
+  if (!regex_birthday.test($("#formMemberBirth").val())){
+    alert("出生年月格式錯誤!");
+    console.log("birthday format is wrong");
+    return false;
+  }
+  console.log("birthday format is correct");
+  
+  console.log("進行更新會員資料");
+  
+  //?API=15&UserId=U8570ed5006325d504933612308d0fddf&Unit=醫院A&MemberID=ID00000001&MemberName=林X文&MemberBirthday=2021-08-01
+  var APIToCall = "?API=15"
+  paramToSend = APIToCall +
+    "&UserId="           + userId[1] +
+    "&Unit="             + $("#formMemberUnit").val() +
+    "&MemberID="         + $("#formMemberID").val() +    
+    "&MemberName="       + $("#formMemberName").val() +      
+    "&MemberBirthday="   + $("#formMemberBirth").val();   
+  
+  console.log(paramToSend); 
+
+  var profile = "請確認會員資料:\n" +
+    "    服務單位: " + $("#formMemberUnit").val() + "\n" +     
+    "    會員編號: " + $("#formMemberID").val()   + "\n" +      
+    "    會員姓名: " + $("#formMemberName").val() + "\n" +
+    "    會員生日: " + $("#formMemberBirth").val()+ "\n"; 
+       
+  console.log(profile); 
+  if (confirm(profile)) {
+    // 寫入會員到 Direbase     
+    var res = await callAPI(paramToSend, '寫入資料');
+
+    if (res == "更新資料庫成功") {
+      alert("資料更新成功");
+      checkUserIdExist();
+      已經是會員 = true;
+      app.navigate('#:back');
+    } else {
+      alert("資料更新失敗，請重試。若一直有問題，請洽管理員")
       $("#errorMessage").css("display", "block");
     }
 
