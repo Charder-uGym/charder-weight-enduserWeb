@@ -612,12 +612,14 @@ function 顯示圖表() {
 
 function 顯示個人資料同意書() {
   console.log("顯示個人資料同意書");
+  $("#QRscanBtn").hide();
   $("#formData").hide();
   $("#個人資料使用Div").hide();
   $("#個人資料同意書Div").show();
 }
 
 function 我知道了(){
+  $("#QRscanBtn").show();
   $("#formData").show();
   $("#個人資料使用Div").show();  
   $("#個人資料同意書Div").hide();      
@@ -678,6 +680,68 @@ function drawChart(){
 // myChartWeight.data.datasets[0].data ==> [null, null, null, null, 4.28, 4.75, null]
 // modify data, use myChartWeight.update()
 
+function navBackToMain(){
+  console.log(html5QrCode);
+  if (html5QrCode!=undefined) html5QrCode.stop();
+  $("#qr-div").hide();  
+}
+
+function 關閉QR(){
+  if (html5QrCode!=undefined) html5QrCode.stop();
+  $("#qr-div").hide(); 
+  $("#QRscanBtn").show();
+  $("#formData").show();
+  $("#個人資料使用Div").show();  
+  
+}
+
+var html5QrCode;
+function startQR(){
+  console.log('start QR');
+  
+  $("#QRscanBtn").hide();
+  $("#formData").hide();
+  $("#個人資料使用Div").hide();
+  
+  var cameraId;
+  var qrCodeSuccessCallback;
+  var config;
+  
+  html5QrCode = new Html5Qrcode("qr-reader");
+
+  qrCodeSuccessCallback = (decodedText, decodedResult) => {
+      /* handle success */
+  };
+  
+  config = { fps: 10, qrbox: { width: 200, height: 200 } };    
+
+  $.loading.start("啟動 Camera");
+  Html5Qrcode.getCameras().then(devices => {
+    /**
+     * devices would be an array of objects of type:
+     * { id: "id", label: "label" }
+     */
+    if (devices && devices.length) {
+      for (var i=0; i< devices.length; i++){
+        $("#availableCmeras").append("<option value="+i.toString()+">"+ devices[i].label+ "</option>");
+      }
+      cameraId = devices[1].id;
+      console.log(devices, cameraId);
+      $("#qr-div").show(); 
+      $("#cameraSelect-div").hide();
+      html5QrCode.start({ deviceId: { exact: cameraId} }, config, qrCodeSuccessCallback).then(()=>{
+        $("#cameraSelect-div").show();
+        $.loading.end();
+      });    
+      
+    }
+  }).catch(err => {
+    // handle err
+  });  
+  
+  
+}
+
 function toISOStringWithTimeZone() {
     var nowDate = new Date();        
     var tzo = - nowDate.getTimezoneOffset(),
@@ -700,4 +764,3 @@ function toISOStringWithTimeZone() {
 function testaaa(){
   console.log("aaa");
 }
-
