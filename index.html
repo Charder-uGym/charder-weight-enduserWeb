@@ -20,7 +20,7 @@
 
   <!-- LINE Opengraph https://developers.line.biz/en/faq/tags/media/#how-are-the-url-previews-generated -->
   <meta property="og:image" content="https://raw.githubusercontent.com/Charder-uGym/instant-fitness-bodyMeasureLINE/main/金機.png" />  
-  <meta property="og:title" content="金機體重紀錄系統" />
+  <meta property="og:title" content="金機身高體重紀錄系統" />
   <meta property="og:description" content=""/>
   <!-- End LINE Opengraph -->
    
@@ -34,7 +34,10 @@
   <link href="https://kendo.cdn.telerik.com/2020.1.114/styles/kendo.mobile.nova.min.css" rel="stylesheet" />   
 
   <link href="css/courseStyle.css" rel="stylesheet" />
-     
+   
+  <!-- Fontawesome CSS -->
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+           
   <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
   <script src="https://kendo.cdn.telerik.com/2020.1.114/js/kendo.all.min.js"></script>
   <script src="https://kendo.cdn.telerik.com/2020.1.114/js/kendo.timezones.min.js"></script>
@@ -144,7 +147,7 @@
     <h3 class="NotoSansFont" style="margin-top: 2em; color: darkslategray; font-weight: bold">金機身體量測紀錄系統</h3>
   </div>
     
-  <div data-role="view" data-title="金機體重紀錄系統" style="font-family: 'Noto Sans TC'" id="mainDiv" data-layout="" data-reload="false">
+  <div data-role="view" data-title="金機身高體重紀錄系統" style="font-family: 'Noto Sans TC'" id="mainDiv" data-layout="" data-reload="false">
     <header data-role="header">
       <div data-role="navbar" id="normal" class="km-accent">
 
@@ -190,6 +193,11 @@
 
    
   <div id="forms" data-role="view" data-title="查詢資料" data-init="initForm" data-use-native-scrolling="true" style="font-family: 'Noto Sans TC'">
+    
+    <a id="QRscan" data-role="button" style="margin-bottom:-20px; margin-left:-5px; font-size:30px; border:none" onclick="alert('scan QR')" >
+        <i  class="fa fa-qrcode" aria-hidden="true"></i>
+    </a>  
+
     <div id="formData">
     
 <!--      <img id="LINE頭像" src="" class="km-thumbnail" style="width: 10em; height: 10em; margin: 1em auto; display: block; float: none;"/>-->
