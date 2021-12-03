@@ -707,12 +707,42 @@ function 關閉QR(){
   
 }
 
+function 確認掃描資料(){
+  console.log("確認掃描資料");
+  if (  ($("#scanUnit").val()=="") ||
+        ($("#scanID").val()=="")   ||
+        ($("#scanName").val()=="") ||
+        ($("#scanBirth").val()=="") 
+     ) {
+    alert("掃描資料不齊全，請再掃描一次!");
+  } else {
+    $("#formMemberUnit").val($("#scanUnit").val());
+    $("#formMemberID").val($("#scanID").val());
+    $("#formMemberName").val($("#scanName").val());
+    $("#formMemberBirth").val($("#scanBirth").val()); 
+    
+    關閉QR();
+  }
+}
 
 // branch "use custom html5QrCode" 使用 html5QrCode，但在 iPhone 6s plus 上畫面比例有點不對，考慮相容性問題，使用 html5QrCodeSanner
 function onScanSuccess(decodedText, decodedResult) {
   // handle the scanned code as you like, for example:
-  console.log(`Code matched = ${decodedText}`, decodedResult);
+  //console.log(`Code matched = ${decodedText}`, decodedResult);
+  var scanInfo;
+  try {
+    scanInfo = JSON.parse(decodedText)
+  } catch (e) {
+    console.log(e);
+    return
+  }
+  //console.log(scanInfo)
+  $("#scanUnit").val(scanInfo.unit);
+  $("#scanID").val(scanInfo.id);
+  $("#scanName").val(scanInfo.name);
+  $("#scanBirth").val(scanInfo.birth);
 }
+  
 
 function onScanFailure(error) {
   // handle scan failure, usually better to ignore and keep scanning.
