@@ -75,7 +75,7 @@
     .km-on-ios .km-header .km-navbar
     {
       /*background-color: darkslategray;*/
-      background-color: rgb(42,45,63);
+      /*background-color: rgb(42,45,63);*/
       /*使用預設 Nova theme*/
       font-size: 16px;
     }
@@ -94,6 +94,7 @@
     .km-on-android .km-header .km-navbar
     {
       /*background-color: darkslategray;*/
+      /*background-color: rgb(42,45,63);*/      
       /*使用預設 Nova theme*/
       font-size: 16px;
     }
@@ -153,8 +154,10 @@
   <div data-role="view" data-title="金機身高體重紀錄系統" style="font-family: 'Noto Sans TC'" id="mainDiv" data-layout="" data-reload="false">
     <header data-role="header">
       <div data-role="navbar" id="normal" class="km-accent">
+      <!--<div data-role="navbar" id="normal" class="km-light">-->
+      <!--<div data-role="navbar" id="normal" class="km-dark">-->
 
-        <a data-align="right" data-role="button" href="#forms" data-rel="" data-icon="contacts" data-click="aaa"></a>
+        <a data-align="right" data-role="button" href="#forms" data-rel="" data-icon="contacts"></a>
         
         <span data-role="view-title"></span>
              
@@ -168,7 +171,7 @@
       <img src="金機.png" height="60px" style="margin-top:10px;margin-bottom:10px"><br>
       <span id="量測記錄title" class="進行量測Label" style="float:left; padding-top: 10px">量測記錄</span>
       
-      <a class="" style="font-size: 18px; color: white; float:right;margin-right:15px; background-color:#FF4350; padding:10px;border-radius:8px;background-color:rgb(42,45,63)" onclick="顯示圖表()">圖表顯示</a> 
+      <a class="" style="font-size: 18px; color: white; float:right;margin-right:15px; background-color:#FF4350; padding:10px;border-radius:8px" onclick="顯示圖表()">圖表顯示</a> 
 
       <br><div style="height:30px"></div><hr>      
     </div>
@@ -196,8 +199,10 @@
 
   <div data-id="mainDiv" data-role="layout" data-show="showDemoLayout" data-hide="removeView">
     <header data-role="header">
-      <div data-role="navbar" class="km-accent">
-        <a data-align="left" data-icon="arrow-w" href="#/" data-role="backbutton" data-transition="slide reverse"></a>
+      <div data-role="navbar" id="normal" class="km-accent">
+      <!--div data-role="navbar" id="normal" class="km-light">     -->
+      <!--<div data-role="navbar" id="normal" class="km-dark">     -->
+        <a data-align="left" data-icon="arrow-w" href="#/" data-role="backbutton" data-transition="slide reverse" data-click="navBackToMain"></a>
         <span data-role="view-title"></span>
       </div>
     </header>
@@ -205,23 +210,25 @@
    
   <div id="forms" data-role="view" data-title="查詢資料" data-init="查詢資料initForm" data-use-native-scrolling="true" style="font-family: 'Noto Sans TC'">
   
+<!-- 在 iOS 上 backbutton 沒有用
     <header data-role="header">
       <div data-role="navbar" style="background-color: green">
         <a class="nav-button" data-align="left" data-role="backbutton" data-click="navBackToMain">Back</a>
         <span data-role="view-title" ></span>
       </div>
     </header>   
+-->
       
     <div id="qr-div" style="display:none;">
      
       <button style="float:left; border:none; background:white; font-size:24px; margin-left:5px; margin-top:3px" ><i  class="fa fa-times" aria-hidden="true" onClick="關閉QR()"></i></button>
       
       <div id="cameraSelect-div" style="margin-top:20px">
-        <span style=" margin-left:20px">選擇相機:</apsn>
+        <span style=" margin-left:20px">選擇相機:</span>
         <select id="availableCmeras" style="width:200px; padding-top:10px; padding-bottom:10px">
           <!-- <option value=0>Front</option>-->
         </select> 
-        <button id="stopStartScan" style="border:none;color:white;background-color:rgb(42,45,63); border-radius:5px;padding:10px;margin-left:5px">停止掃描</button> 
+        <button id="stopStartScan" class="km-primary" style="border:none;color:white; border-radius:5px;padding:10px;margin-left:5px">停止掃描</button> 
       </div> 
                         
       <!--<div id="qr-reader" style="width:380px; height:285px; margin:10px; margin-top:10px; background-color: antiquewhite"></div>   -->
@@ -313,7 +320,7 @@
       </ul>
 
       <div align="center">
-        <a id="更新資料按鈕" data-role="button" class="km-primary" style="color: white; margin:1em; padding-left:3em; padding-right:3em;background-color:rgb(42,45,63); border:none" onclick="更新資料()" >更新資料</a> 
+        <a id="更新資料按鈕" data-role="button" class="km-primary" style="color: white; margin:1em; padding-left:3em; padding-right:3em; border:none" onclick="更新資料()" >更新資料</a> 
       </div>
     </div>
 
@@ -360,18 +367,6 @@
     
   </div>  
   
-<!--
-  <div data-id="mainDiv" data-role="layout" data-show="showDemoLayout" data-hide="removeView">
-    <header data-role="header">
-      <div data-role="navbar" class="km-accent">
-        <a data-align="left" data-icon="arrow-w" href="#/" data-role="backbutton" data-transition="slide reverse"></a>
-        <span data-role="view-title"></span>
-      </div>
-    </header>
-  </div>
--->
-
-
   <!-- The core Firebase JS SDK is always required and must be listed first -->
   <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-app.js"></script>
  

@@ -681,13 +681,14 @@ function drawChart(){
 // modify data, use myChartWeight.update()
 
 function navBackToMain(){
-  console.log(html5QrCode);
-  if (html5QrCode!=undefined) html5QrCode.stop();
+//  if (html5QrCode!=undefined) html5QrCode.stop();
+  if (html5QrcodeScanner!=undefined) html5QrcodeScanner.html5Qrcode.stop();
   $("#qr-div").hide();  
 }
 
 function 關閉QR(){
-  if (html5QrCode!=undefined) html5QrCode.stop();
+//  if (html5QrCode!=undefined) html5QrCode.stop();
+  if (html5QrcodeScanner!=undefined) html5QrcodeScanner.html5Qrcode.stop();
   $("#qr-div").hide(); 
   $("#QRscanBtn").show();
   $("#formData").show();
@@ -695,6 +696,35 @@ function 關閉QR(){
   
 }
 
+
+// branch "use custom html5QrCode" 使用 html5QrCode，但在 iPhone 6s plus 上畫面比例有點不對，考慮相容性問題，使用 html5QrCodeSanner
+function onScanSuccess(decodedText, decodedResult) {
+  // handle the scanned code as you like, for example:
+  console.log(`Code matched = ${decodedText}`, decodedResult);
+}
+
+function onScanFailure(error) {
+  // handle scan failure, usually better to ignore and keep scanning.
+  // for example:
+  console.warn(`Code scan error = ${error}`);
+}
+
+var html5QrCodeScanner;
+function startQR(){
+  console.log("start QR scanner");
+  $("#qr-div").show(); 
+  
+  html5QrcodeScanner = new Html5QrcodeScanner(
+    "qr-reader",
+    { fps: 10, qrbox: {width: 250, height: 250} },
+    /* verbose= */ false);
+  html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+  console.log(html5QrcodeScanner);
+  
+}
+
+
+/* use "use custom html5QrCode"
 var html5QrCode;
 function startQR(){
   console.log('start QR');
@@ -710,17 +740,14 @@ function startQR(){
   html5QrCode = new Html5Qrcode("qr-reader");
 
   qrCodeSuccessCallback = (decodedText, decodedResult) => {
-      /* handle success */
+      // handle success 
   };
   
   config = { fps: 10, qrbox: { width: 200, height: 200 } };    
 
   $.loading.start("啟動 Camera");
   Html5Qrcode.getCameras().then(devices => {
-    /**
-     * devices would be an array of objects of type:
-     * { id: "id", label: "label" }
-     */
+    // devices would be an array of objects of type: { id: "id", label: "label" }
     if (devices && devices.length) {
       for (var i=0; i< devices.length; i++){
         $("#availableCmeras").append("<option value="+i.toString()+">"+ devices[i].label+ "</option>");
@@ -738,9 +765,9 @@ function startQR(){
   }).catch(err => {
     // handle err
   });  
-  
-  
+   
 }
+*/
 
 function toISOStringWithTimeZone() {
     var nowDate = new Date();        
@@ -763,4 +790,5 @@ function toISOStringWithTimeZone() {
 
 function testaaa(){
   console.log("aaa");
+  alert("aaa");
 }
