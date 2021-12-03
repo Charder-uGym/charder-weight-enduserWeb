@@ -222,21 +222,9 @@
     <div id="qr-div" style="display:none;">
      
       <button style="border:none; background:white; font-size:24px; margin-left:5px; margin-top:3px" ><i  class="fa fa-times" aria-hidden="true" onClick="關閉QR()"></i></button>
+      <button onClick="確認掃描資料()" class="km-primary" style="float:right; border:none;color:white; border-radius:5px;padding:10px;margin-right:10px; margin-top:5px">確認掃描資料</button>
       
-<!--
-      <div id="cameraSelect-div" style="margin-top:20px">
-        <span style=" margin-left:20px">選擇相機:</span>
-        <select id="availableCmeras" style="width:200px; padding-top:10px; padding-bottom:10px">
-           <option value=0>Front</option>
-        </select> 
-        <button id="stopStartScan" class="km-primary" style="border:none;color:white; border-radius:5px;padding:10px;margin-left:5px">停止掃描</button> 
-      </div> 
--->
-                        
-      <!--<div id="qr-reader" style="width:380px; height:285px; margin:10px; margin-top:10px; background-color: antiquewhite"></div>   -->
-      <div id="qr-reader" style="width:395px; height:295px; margin:10px; margin-top:10px; background-color: white"></div>  
-      <div style="height:50px"></div>
-      <div style="margin-left:10px; margin-top:5px">服務單位: 
+      <div style="margin-left:10px; margin-top:15px">服務單位: 
         <input type="text" id="scanUnit" style="width:329px; border:none; border-width:1px; border-color: lightgray; border-style:solid" placeholder="等待掃描 QR Code">
       </div>  
       <div style="margin-left:10px; margin-top:5px">會員編號:
@@ -248,9 +236,13 @@
       <div style="margin-left:10px; margin-top:5px">會員生日: 
         <input type="text" id="scanBirth" style="width:329px; border:none; border-width:1px; border-color: lightgray; border-style:solid" placeholder="等待掃描 QR Code">
       </div>  
+<!--
       <div>
         <button onClick="確認掃描資料()" class="km-primary" style="border:none;color:white; border-radius:5px;padding:10px;margin-left:10px; margin-top:5px">確認掃描資料</button>
       </div>
+-->
+      
+      <div id="qr-reader" style="width:395px; height:295px; margin:10px; margin-top:10px; background-color: white"></div>        
       
     </div>
     
