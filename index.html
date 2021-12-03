@@ -48,26 +48,6 @@
   
   <script src="js/html5-qrcode.js" type="text/javascript"></script>
   
-  
-  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
-  <script>
-    async function scanCodeV2() {
-      try {
-        const result = await liff.scanCodeV2();
-        document.querySelector('#result').innerHTML = result.value;
-      } catch(error) {
-        console.log('scanCodeV2', error);
-      }
-    }
-    async function main() {
-      await liff.init({ liffId: '1656549930-GdBr5d5V' });
-      if (!liff.isLoggedIn()) {
-        liff.login();
-      }
-    }
-    main();
-  </script>  
-  
 </head>
 
 <body id="body">
