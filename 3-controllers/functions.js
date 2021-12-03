@@ -687,7 +687,10 @@ function navBackToMain(){
     console.log("clear");
     html5QrCodeScanner.clear();
   }
-  $("#qr-div").hide();  
+  $("#qr-div").hide(); 
+  $("#QRscanBtn").show();
+  $("#formData").show();
+  $("#個人資料使用Div").show();   
 }
 
 function 關閉QR(){
@@ -695,7 +698,7 @@ function 關閉QR(){
   console.log(html5QrCodeScanner)
   if (html5QrCodeScanner!="") { 
     console.log("clear");
-    html5QrCodeScanner.clear();
+    html5QrCodeScanner.clear();  
   }
   $("#qr-div").hide(); 
   $("#QRscanBtn").show();
@@ -720,6 +723,9 @@ function onScanFailure(error) {
 var html5QrCodeScanner="";
 function startQR(){
   console.log("start QR scanner");
+  $("#QRscanBtn").hide();
+  $("#formData").hide();
+  $("#個人資料使用Div").hide();  
   $("#qr-div").show(); 
   
   html5QrCodeScanner = new Html5QrcodeScanner(
