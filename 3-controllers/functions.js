@@ -680,6 +680,28 @@ function drawChart(){
 // myChartWeight.data.datasets[0].data ==> [null, null, null, null, 4.28, 4.75, null]
 // modify data, use myChartWeight.update()
 
+var html5QrCodeScanner="";
+function startQR(){
+  console.log("start QR scanner");
+  
+  $("#scanUnit").val("");
+  $("#scanID").val("");
+  $("#scanName").val("");
+  $("#scanBirth").val("");  
+  
+  $("#QRscanBtn").hide();
+  $("#formData").hide();
+  $("#個人資料使用Div").hide();  
+  $("#qr-div").show(); 
+  
+  html5QrCodeScanner = new Html5QrcodeScanner(
+    "qr-reader",
+    { fps: 10, qrbox: {width: 250, height: 250} },
+    /* verbose= */ false);
+  html5QrCodeScanner.render(onScanSuccess, onScanFailure);
+}
+
+
 function navBackToMain(){
 //  if (html5QrCode!=undefined) html5QrCode.stop();
   console.log(html5QrCodeScanner)
@@ -748,21 +770,6 @@ function onScanFailure(error) {
   // handle scan failure, usually better to ignore and keep scanning.
   // for example:
   //console.warn(`Code scan error = ${error}`);
-}
-
-var html5QrCodeScanner="";
-function startQR(){
-  console.log("start QR scanner");
-  $("#QRscanBtn").hide();
-  $("#formData").hide();
-  $("#個人資料使用Div").hide();  
-  $("#qr-div").show(); 
-  
-  html5QrCodeScanner = new Html5QrcodeScanner(
-    "qr-reader",
-    { fps: 10, qrbox: {width: 250, height: 250} },
-    /* verbose= */ false);
-  html5QrCodeScanner.render(onScanSuccess, onScanFailure);
 }
 
 
